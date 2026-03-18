@@ -1,18 +1,18 @@
-import javax.swing.JFrame;
-import java.awt.*;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import javafx.application.Application;
 
 
 public class Main {
     public static void main(String[] args) {
-        JFrame window = new JFrame("Angry Birds");
-        Game game = new Game();
 
-
-        window.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        window.setVisible(true);
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setLocationRelativeTo(null);
-
-        window.add(game, BorderLayout.CENTER);
+        Application.launch(Game.class, args);
     }
 }
+
+
+

@@ -1,23 +1,41 @@
-import javax.swing.*;
-import java.awt.*;
 
-public class MenuScreen extends JPanel {
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+
+
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+import javafx.scene.layout.Pane;
+
+
+public class MenuScreen extends Pane {
 
     public MenuScreen(Game game) {
 
-        JButton startButton = new JButton("Start");
-        setOpaque(false);
 
-        startButton.setBackground(Color.YELLOW);
-        startButton.setForeground(Color.WHITE);
+        Button playButton = new Button("Play");
 
+        ImageView titleImage = new ImageView(new Image(getClass().getResource("/images/title.png").toExternalForm()));
 
+        titleImage.setFitHeight(250);
+        titleImage.layoutXProperty().bind(widthProperty().divide(2).subtract(450));
+        titleImage.setLayoutY(200);
 
-        startButton.setPreferredSize(new Dimension(200, 100));
-        startButton.setFont(new Font("Arial", Font.BOLD, 25));
-        startButton.addActionListener(e -> {
-            game.showScreen(new LevelScreen(game));
+        playButton.layoutXProperty().bind(widthProperty().divide(2).subtract(85));
+        playButton.layoutYProperty().bind(heightProperty().divide(2).subtract(20));
+
+        playButton.setOnMouseClicked(e -> {
+            game.selectLevelScreen();
         });
-        add(startButton, new GridBagConstraints());
+
+        playButton.setStyle("-fx-background-color: FAEE00;" + "-fx-text-fill: white;" + "-fx-border-color: none;" + "-fx-border-radius: 10;" + "-fx-background-radius: 10;" + "-fx-pref-height: 120;" + "-fx-pref-width: 200;" + "-fx-font-size: 27;" + "-fx-font-weight: bold;");
+
+        getChildren().add(playButton);
+        getChildren().add(titleImage);
+
+
     }
+
 }
