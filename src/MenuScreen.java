@@ -1,8 +1,4 @@
 
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-
-
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,12 +12,17 @@ public class MenuScreen extends Pane {
 
 
         Button playButton = new Button("Play");
-        Button exitButton = new Button("HUI");
+        Button exitButton = new Button("");
+
+        playButton.getStyleClass().addAll("button", "button--main");
+        exitButton.getStyleClass().addAll("button", "button--exit");
+
+
+
 
         exitButton.layoutXProperty().bind(widthProperty().subtract(90));
         exitButton.setLayoutY(10);
 
-        exitButton.setStyle("-fx-background-color: FAEE00;" + "-fx-text-fill: white;" + "-fx-border-color: none;" + "-fx-border-radius: 50;" + "-fx-background-radius: 50;" + "-fx-pref-height: 80;" + "-fx-pref-width: 80;");
         exitButton.setOnMouseClicked(e -> {
             System.exit(0);
         });
@@ -39,7 +40,9 @@ public class MenuScreen extends Pane {
             game.selectLevelScreen();
         });
 
-        playButton.setStyle("-fx-background-color: FAEE00;" + "-fx-text-fill: white;" + "-fx-border-color: none;" + "-fx-border-radius: 10;" + "-fx-background-radius: 10;" + "-fx-pref-height: 120;" + "-fx-pref-width: 200;" + "-fx-font-size: 30;" + "-fx-font-weight: bold;");
+
+
+
 
         getChildren().add(playButton);
         getChildren().add(titleImage);
