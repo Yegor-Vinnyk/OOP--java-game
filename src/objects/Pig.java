@@ -1,4 +1,8 @@
+package objects;
+
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import objects.GameObject;
 
 public class Pig extends GameObject {
     private int health = 100;
@@ -17,12 +21,13 @@ public class Pig extends GameObject {
     }
 
     @Override
-    public void update() {
-
+    public void update(double groundY) {
     }
 
     @Override
-    public void draw(GraphicsContext gc) {
+    public void draw(GraphicsContext g) {
+        g.setFill(Color.GREEN);
+    /*    g.fillOval((int)getX(), (int)getY(), (int)getWidth(), (int)getHeight());*/
 
     }
 }

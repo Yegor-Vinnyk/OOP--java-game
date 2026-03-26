@@ -1,7 +1,11 @@
+package gameInterface;
+
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.paint.Color;
+import gameInterface.PauseOverlay;
+import gameEngine.Game;
 
 
 public class GameScreen extends Pane {
@@ -24,7 +28,7 @@ public class GameScreen extends Pane {
 
         pauseMenu = new PauseOverlay(
                 () -> resumeGame(),
-                () -> quitToMenu(), game
+                game
         );
 
 
@@ -41,6 +45,7 @@ public class GameScreen extends Pane {
     private void resumeGame() {
         pauseMenu.hide();
     }
+
     private void pauseGame() {
         pauseMenu.show();
     }

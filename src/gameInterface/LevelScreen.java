@@ -1,7 +1,10 @@
+package gameInterface;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.paint.Color;
+import gameEngine.Game;
+import levels.Level1;
 
 public class LevelScreen extends Pane {
 
@@ -57,7 +60,8 @@ public class LevelScreen extends Pane {
 
 
         level1Button.setOnMouseClicked(e -> {
-            game.levelScreen();
+            game.setLevel(new Level1(3, 2, 100));
+
         });
 
         level2Button.setOnMouseClicked(e -> {

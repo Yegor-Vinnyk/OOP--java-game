@@ -1,19 +1,28 @@
+package gameEngine;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+import gameInterface.GameScreen;
+import gameInterface.MenuScreen;
+import gameInterface.LevelScreen;
+import levels.Level1;
+import levels.Level;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+
 
 public class Game extends Application /*implements Runnable*/ {
 
-  /*  private Level currentLevel;
-    private PhysicsEngine physicsEngine;
+    private Level currentLevel;
+    private GraphicsContext gc;
+    private Canvas canvas;
+    /*private PhysicsEngine physicsEngine;
     private inputHanler inputHanler;*/
     /*private boolean isRunning;*/
 
@@ -28,6 +37,10 @@ public class Game extends Application /*implements Runnable*/ {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/style/style.css").toExternalForm());
 
+        canvas = new Canvas();
+        canvas.widthProperty().bind(root.widthProperty());
+        canvas.heightProperty().bind(root.heightProperty());
+        gc = canvas.getGraphicsContext2D();
 
         selectMenuScreen();
         stage.setTitle("Angry Birds");
@@ -40,6 +53,7 @@ public class Game extends Application /*implements Runnable*/ {
         background.setPreserveRatio(false);
 
         root.getChildren().add(background);
+        root.getChildren().add(canvas);
         selectMenuScreen();
         stage.setScene(scene);
         stage.setFullScreen(true);
@@ -53,8 +67,10 @@ public class Game extends Application /*implements Runnable*/ {
         new AnimationTimer() {
             @Override
             public void handle(long now) {
-               /* update();
-                render();*/
+                if (currentLevel != null) {
+                    update();
+                }
+                render();
             }
         }.start();
     }
@@ -81,6 +97,7 @@ public class Game extends Application /*implements Runnable*/ {
     }
 
     public void selectLevelScreen() {
+
         setScreen(new LevelScreen(this));
 
 
@@ -89,8 +106,31 @@ public class Game extends Application /*implements Runnable*/ {
     public void levelScreen() {
         setScreen(new GameScreen(this));
 
-
     }
 
+    public void setLevel(Level level) {
+        this.currentLevel = level;
+        currentLevel.initLevel();
+        levelScreen();
+    }
+
+
+    private void render() {
+
+
+        if (this.currentLevel != null) {
+            currentLevel.drawObject(gc);
+        }
+    }
+
+    public void exitLevel() {
+        currentLevel = null;
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        selectLevelScreen();
+    }
+
+    public void update() {
+        currentLevel.update();
+    }
 
 }

@@ -1,5 +1,8 @@
+package objects;
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import objects.GameObject;
 
 
 public class Obstacle extends GameObject {
@@ -34,19 +37,19 @@ public class Obstacle extends GameObject {
     }
 
     @Override
-    public void update() {
+    public void update(double groundY) {
 
     }
 
     @Override
-    public void draw(GraphicsContext gc) {
+    public void draw(GraphicsContext g) {
         switch (this.type) {
             case "Glass":
-                gc.setFill(Color.BLUE);
+                g.setFill(Color.BLUE);
             case "Wood":
-                gc.setFill(Color.BROWN);
+                g.setFill(Color.BROWN);
             case "Stone":
-                gc.setFill(Color.GREY);
+                g.setFill(Color.GREY);
         }
     }
 

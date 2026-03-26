@@ -1,3 +1,5 @@
+package objects;
+
 import javafx.scene.canvas.GraphicsContext;
 
 public abstract class GameObject {
@@ -38,9 +40,9 @@ public abstract class GameObject {
         this.y = y;
     }
 
-    public abstract void update();
+    public abstract void update(double groundY);
 
-    public abstract void draw(GraphicsContext gc);
+    public abstract void draw(GraphicsContext g);
 
     public boolean intersects(GameObject other) {
         return x < other.x + other.width &&

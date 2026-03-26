@@ -1,6 +1,11 @@
-import javafx.scene.canvas.GraphicsContext;
+package objects;
 
-public class Bird extends GameObject {
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import objects.GameObject;
+import levels.Level1;
+
+public abstract class Bird extends GameObject {
 
     private double velocityX = 0;
     private double velocityY = 0;
@@ -10,6 +15,8 @@ public class Bird extends GameObject {
     public Bird(double x, double y, double width, double height, double mass) {
         super(x, y, width, height);
         this.mass = mass;
+
+
     }
 
 
@@ -20,6 +27,7 @@ public class Bird extends GameObject {
     public double getVelocityY() {
         return this.velocityY;
     }
+
 
     public double getMass() {
         return this.mass;
@@ -47,19 +55,25 @@ public class Bird extends GameObject {
     }
 
     @Override
-    public void update() {
+    public void update(double groundY) {
         if (this.isLaunched) {
             velocityY += 0.5;
 
+
             setX(getX() + velocityX);
             setY(getY() + velocityY);
+
+            if (getY() + getHeight() >= groundY) {
+
+                setY(groundY - getHeight());
+                velocityY = 0;
+            }
+
+
+        }
+        if (getY() + getHeight() >= groundY) {
+            setY(groundY - getHeight());
         }
 
     }
-
-    @Override
-    public void draw(GraphicsContext gc) {
-
-    }
-
 }

@@ -1,4 +1,4 @@
-
+package gameInterface;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -6,6 +6,7 @@ import javafx.scene.shape.SVGPath;
 import javafx.scene.paint.Color;
 
 import javafx.scene.layout.Pane;
+import gameEngine.Game;
 
 
 public class MenuScreen extends Pane {
