@@ -1,0 +1,41 @@
+.button {
+-fx-background-color: FAEE00;
+-fx-text-fill: white;
+-fx-border-color: none;
+-fx-font-weight: bold;
+-fx-font-size: 30;
+-fx-border-radius: 10;
+-fx-background-radius: 10;
+}
+
+.button--main {
+-fx-pref-height: 120;
+-fx-pref-width: 200;
+}
+
+.button--level {
+-fx-pref-height: 110;
+-fx-pref-width: 190;
+-fx-font-size: 35;
+}
+
+.button--round {
+-fx-border-radius: 50;
+-fx-background-radius: 50;
+-fx-pref-height: 80;
+-fx-pref-width: 80;
+}
+
+.button--pause {
+-fx-pref-height: 80;
+-fx-pref-width: 200;
+}
+
+
+/*Think of adding smooth transitions*/
+.button:hover {
+-fx-background-color: #2980b9;
+-fx-cursor: hand;
+-fx-scale-x: 1.06;
+-fx-scale-y: 1.06;
+}

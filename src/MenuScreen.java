@@ -13,7 +13,7 @@ public class MenuScreen extends Pane {
     public MenuScreen(Game game) {
 
 
-        Button playButton = new Button("Play");
+        Button playButton = new Button("PLAY");
         Button exitButton = new Button("");
 
         playButton.getStyleClass().addAll("button", "button--main");
