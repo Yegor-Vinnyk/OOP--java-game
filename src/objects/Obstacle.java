@@ -7,28 +7,31 @@ import objects.GameObject;
 
 public class Obstacle extends GameObject {
 
-    private int health;
+    private double health;
     private String type;
 
-    public Obstacle(double x, double y, double width, double height, String type) {
-        super(x, y, width, height);
+    public Obstacle(double x, double y, double width, double height, String type, double mass) {
+        super(x, y, width, height, mass);
 
         this.type = type;
         switch (type) {
             case "Glass":
                 this.health = 30;
+                break;
             case "Wood":
-                this.health = 65;
+                this.health = 50 ;
+                break;
             case "Stone":
                 this.health = 100;
+                break;
         }
     }
 
-    /*public String getType() {
+    public String getType() {
         return this.type;
-    }*/
+    }
 
-    public void takeDamage(int damage) {
+    public void takeDamage(double damage) {
         this.health -= damage;
     }
 
@@ -37,20 +40,25 @@ public class Obstacle extends GameObject {
     }
 
     @Override
-    public void update(double groundY) {
-
-    }
-
-    @Override
     public void draw(GraphicsContext g) {
-        switch (this.type) {
+        switch (getType()) {
             case "Glass":
-                g.setFill(Color.BLUE);
+                g.setFill(Color.LIGHTBLUE);
+                break;
             case "Wood":
                 g.setFill(Color.BROWN);
+                break;
             case "Stone":
                 g.setFill(Color.GREY);
+                break;
         }
-    }
+        
 
+        g.fillRect(getX(), getY(), getWidth(), getHeight());
+        
+
+        g.setStroke(Color.BLACK);
+        g.setLineWidth(0.5);
+        g.strokeRect(getX(), getY(), getWidth(), getHeight());
+    }
 }

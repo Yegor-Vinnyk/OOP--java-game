@@ -1,6 +1,8 @@
 package levels;
 import levels.Level;
 import objects.Blue;
+import objects.Obstacle;
+import objects.Pig;
 
 
 public class Level1 extends Level {
@@ -18,7 +20,17 @@ public class Level1 extends Level {
     @Override
     public void initLevel() {
         for (int i = 0; i < numberOfBirds; i++) {
-            getBirds().add(new Blue((370 - i * 50), 880, 60.0, 60.0, 35.0));
+            getBirds().add(new Blue((370 - i * 50), 880, 60.0, 60.0, 1));
+        }
+
+        for (int i = 0; i < numberOfPigs; i++) {
+            getPigs().add(new Pig((1200 + i * 30), 840, 80, 80, 3));
+
+        }
+
+        for (int i = 0; i < numberOfObstacles; i++) {
+            getObstacles().add(new Obstacle((700 + i * 30), 840, 10, 90, "Glass", 1.5));
+
         }
     }
 

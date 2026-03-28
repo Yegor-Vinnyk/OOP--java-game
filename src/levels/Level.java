@@ -3,6 +3,7 @@ package levels;
 import java.util.List;
 import java.util.ArrayList;
 
+import gameEngine.PhysicsEngine;
 import objects.Bird;
 import objects.Pig;
 import objects.Obstacle;
@@ -19,6 +20,7 @@ public abstract class Level {
     private double groundLevel = 940;
     private Slingshot slingshot;
 
+
     public Level() {
         birds = new ArrayList<>();
         pigs = new ArrayList<>();
@@ -27,11 +29,18 @@ public abstract class Level {
         currentBirdIndex = 0;
     }
 
-    public void update() {
-        for (Bird bird : birds) {
-            bird.update(groundLevel);
-        }
+    public void update(PhysicsEngine physicsEngine) {
+        List<Bird> newBirds = new ArrayList<>();
 
+        for (Bird bird : birds) {
+            physicsEngine.update(bird, this);
+
+            newBirds.addAll(bird.getSpawnedBirds());
+        }
+        birds.addAll(newBirds);
+
+        pigs.removeIf(pig -> pig.isDead());
+        obstacles.removeIf(obstacle -> obstacle.isDead());
     }
 
 
@@ -54,10 +63,6 @@ public abstract class Level {
             return birds.get(currentBirdIndex++);
         }
         return null;
-    }
-
-    public void addBirds(List<Bird> newBirds) {
-        birds.addAll(newBirds);
     }
 
     public void addScore(int points) {
@@ -102,8 +107,15 @@ public abstract class Level {
         for (Bird bird : birds) {
             bird.draw(g);
         }
+        for (Pig pig : getPigs()) {
+            pig.draw(g);
+        }
 
         slingshot.draw(g);
 
+        for (Obstacle o : getObstacles()) {
+            o.draw(g);
+        }
     }
+
 }

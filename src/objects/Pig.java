@@ -3,16 +3,19 @@ package objects;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import objects.GameObject;
+import javafx.scene.image.Image;
 
 public class Pig extends GameObject {
-    private int health = 100;
+    private double health = 100;
+    private Image image;
 
-    public Pig(double x, double y, double width, double height) {
-        super(x, y, width, height);
 
+    public Pig(double x, double y, double width, double height, double mass) {
+        super(x, y, width, height, mass);
+        image = new Image(getClass().getResourceAsStream("/images/pig.png"));
     }
 
-    public void takeDamage(int damage) {
+    public void takeDamage(double damage) {
         this.health -= damage;
     }
 
@@ -20,14 +23,10 @@ public class Pig extends GameObject {
         return this.health <= 0;
     }
 
-    @Override
-    public void update(double groundY) {
-    }
 
     @Override
     public void draw(GraphicsContext g) {
-        g.setFill(Color.GREEN);
-    /*    g.fillOval((int)getX(), (int)getY(), (int)getWidth(), (int)getHeight());*/
+           g.drawImage(image, getX(),getY(), getWidth(), getHeight());
 
     }
 }

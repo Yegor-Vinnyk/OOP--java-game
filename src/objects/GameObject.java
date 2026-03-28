@@ -8,12 +8,14 @@ public abstract class GameObject {
     private double y;
     private double width;
     private double height;
+    private double mass;
 
-    public GameObject(double x, double y, double width, double height) {
+    public GameObject(double x, double y, double width, double height, double mass) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.mass = mass;
     }
 
     public double getX() {
@@ -28,6 +30,10 @@ public abstract class GameObject {
         return this.width;
     }
 
+    public double getMass() {
+        return mass;
+    }
+
     public double getHeight() {
         return this.height;
     }
@@ -40,8 +46,6 @@ public abstract class GameObject {
         this.y = y;
     }
 
-    public abstract void update(double groundY);
-
     public abstract void draw(GraphicsContext g);
 
     public boolean intersects(GameObject other) {
@@ -50,5 +54,6 @@ public abstract class GameObject {
                 y < other.y + other.height &&
                 y + height > other.y;
     }
+
 
 }

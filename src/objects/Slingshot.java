@@ -89,26 +89,8 @@ public class Slingshot {
         loadedBird.setVelocityX(velocityX);
         loadedBird.setVelocityY(velocityY);
         loadedBird.launch();
-    }
 
-    public double getCenterX() {
-        return centerX;
-    }
-
-    public double getCenterY() {
-        return centerY;
-    }
-
-    public double getCurrentX() {
-        return currentX;
-    }
-
-    public double getCurrentY() {
-        return currentY;
-    }
-
-    public boolean isDragged() {
-        return isDragged;
+        loadedBird = null;
     }
 
     public void draw(GraphicsContext g) {

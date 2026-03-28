@@ -52,7 +52,7 @@ public class Game extends Application /*implements Runnable*/ {
         gc = canvas.getGraphicsContext2D();
 
         inputHandler = new InputHandler(canvas, this);
-        slingshot = new Slingshot(450, 930, 100, 150);
+        slingshot = new Slingshot(430, 930, 100, 150);
         physicsEngine = new PhysicsEngine();
 
 
@@ -147,17 +147,18 @@ public class Game extends Application /*implements Runnable*/ {
     }
 
     public void update() {
-        currentLevel.update();
-        if (currentBird != null && currentBird.getIsLaunched()) {
-             // Check if the bird has effectively stopped moving
-            boolean isStopped = Math.abs(currentBird.getVelocityX()) < 5.0 && Math.abs(currentBird.getVelocityY()) < 5.0;
-            
-            if (isStopped) {
-                currentBird = currentLevel.nextBird();
-                slingshot.setBird(currentBird);
+        currentLevel.update(physicsEngine);
+        
+        if (currentBird != null) {
+            if (currentBird.getIsLaunched()) {
+                 // Check if the bird has effectively stopped moving
+                boolean isStopped = Math.abs(currentBird.getVelocityX()) < 1.0 && Math.abs(currentBird.getVelocityY()) < 1.0;
+                if (isStopped) {
+                    currentBird = currentLevel.nextBird();
+                    slingshot.setBird(currentBird);
+                }
             }
         }
-       /* physicsEngine.update(currentBird);*/
     }
 
     public void onMousePressed(double x, double y) {
@@ -174,6 +175,8 @@ public class Game extends Application /*implements Runnable*/ {
     }
 
     public void onMouseClicked(double x, double y) {
+        if(currentBird != null && currentBird.getIsLaunched()){
+            currentBird.useAbility();
+        }
     }
-
 }
