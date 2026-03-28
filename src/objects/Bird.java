@@ -11,6 +11,7 @@ public abstract class Bird extends GameObject {
     private double velocityY = 0;
     private double mass;
     private boolean isLaunched = false;
+    private double gravity = 400.0; // Adjusted gravity for better feel
 
     public Bird(double x, double y, double width, double height, double mass) {
         super(x, y, width, height);
@@ -50,30 +51,30 @@ public abstract class Bird extends GameObject {
     }
 
     public void applyForce(double fx, double fy) {
-        this.velocityX += fx / this.mass;
-        this.velocityY += fy / this.mass;
+        this.velocityX += fx / getMass();
+        this.velocityY += fy / getMass();
     }
 
     @Override
     public void update(double groundY) {
         if (this.isLaunched) {
-            velocityY += 0.5;
+            double deltaTime = 0.016; // Approximately 60 FPS
+            
 
+            setVelocityY(getVelocityY() + gravity * deltaTime);
+            setX(getX() + getVelocityX() * deltaTime);
+            setY(getY() + getVelocityY() * deltaTime);
 
-            setX(getX() + velocityX);
-            setY(getY() + velocityY);
 
             if (getY() + getHeight() >= groundY) {
-
                 setY(groundY - getHeight());
-                velocityY = 0;
+                setVelocityY(getVelocityY() * -0.3); // Bounce slightly
+                setVelocityX(getVelocityX() * 0.95); // Friction
+                
+                // Stop when moving very slowly
+                if (Math.abs(getVelocityX()) < 10) setVelocityX(0);
+                if (Math.abs(getVelocityY()) < 10) setVelocityY(0);
             }
-
-
         }
-        if (getY() + getHeight() >= groundY) {
-            setY(groundY - getHeight());
-        }
-
     }
 }

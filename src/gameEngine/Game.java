@@ -15,6 +15,13 @@ import levels.Level1;
 import levels.Level;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import objects.Bird;
+import gameEngine.InputHandler;
+import gameEngine.PhysicsEngine;
+import objects.Slingshot;
+import objects.Blue;
+
+import java.lang.reflect.InvocationTargetException;
 
 
 public class Game extends Application /*implements Runnable*/ {
@@ -22,10 +29,12 @@ public class Game extends Application /*implements Runnable*/ {
     private Level currentLevel;
     private GraphicsContext gc;
     private Canvas canvas;
-    /*private PhysicsEngine physicsEngine;
-    private inputHanler inputHanler;*/
+    private Bird currentBird;
+    private PhysicsEngine physicsEngine;
+    private InputHandler inputHandler;
     /*private boolean isRunning;*/
 
+    private Slingshot slingshot;
     private StackPane root;
     private Pane currentScreen;
 
@@ -42,7 +51,11 @@ public class Game extends Application /*implements Runnable*/ {
         canvas.heightProperty().bind(root.heightProperty());
         gc = canvas.getGraphicsContext2D();
 
-        selectMenuScreen();
+        inputHandler = new InputHandler(canvas, this);
+        slingshot = new Slingshot(450, 930, 100, 150);
+        physicsEngine = new PhysicsEngine();
+
+
         stage.setTitle("Angry Birds");
         stage.setFullScreen(true);
 
@@ -69,8 +82,8 @@ public class Game extends Application /*implements Runnable*/ {
             public void handle(long now) {
                 if (currentLevel != null) {
                     update();
+                    render();
                 }
-                render();
             }
         }.start();
     }
@@ -110,17 +123,21 @@ public class Game extends Application /*implements Runnable*/ {
 
     public void setLevel(Level level) {
         this.currentLevel = level;
+        currentLevel.setSlingshot(slingshot);
         currentLevel.initLevel();
+        currentBird = currentLevel.nextBird();
+        slingshot.setBird(currentBird);
+
         levelScreen();
     }
 
 
     private void render() {
-
-
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         if (this.currentLevel != null) {
             currentLevel.drawObject(gc);
         }
+
     }
 
     public void exitLevel() {
@@ -131,6 +148,32 @@ public class Game extends Application /*implements Runnable*/ {
 
     public void update() {
         currentLevel.update();
+        if (currentBird != null && currentBird.getIsLaunched()) {
+             // Check if the bird has effectively stopped moving
+            boolean isStopped = Math.abs(currentBird.getVelocityX()) < 5.0 && Math.abs(currentBird.getVelocityY()) < 5.0;
+            
+            if (isStopped) {
+                currentBird = currentLevel.nextBird();
+                slingshot.setBird(currentBird);
+            }
+        }
+       /* physicsEngine.update(currentBird);*/
+    }
+
+    public void onMousePressed(double x, double y) {
+        slingshot.onMousePressed(x, y);
+
+    }
+
+    public void onMouseDragged(double x, double y) {
+        slingshot.onMouseDragged(x, y);
+    }
+
+    public void onMouseReleased(double x, double y) {
+        slingshot.onMouseReleased();
+    }
+
+    public void onMouseClicked(double x, double y) {
     }
 
 }

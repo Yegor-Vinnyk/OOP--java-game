@@ -12,6 +12,7 @@ public class GameScreen extends Pane {
     private PauseOverlay pauseMenu;
 
     public GameScreen(Game game) {
+        setPickOnBounds(false); // Let events pass through to the canvas if not handled by buttons
 
         Button pauseButton = new Button();
         SVGPath svgIconPause = new SVGPath();

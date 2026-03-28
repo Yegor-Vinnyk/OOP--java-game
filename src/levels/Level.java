@@ -1,6 +1,5 @@
 package levels;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -8,6 +7,7 @@ import objects.Bird;
 import objects.Pig;
 import objects.Obstacle;
 import javafx.scene.canvas.GraphicsContext;
+import objects.Slingshot;
 
 public abstract class Level {
 
@@ -17,6 +17,7 @@ public abstract class Level {
     private int score;
     private int currentBirdIndex;
     private double groundLevel = 940;
+    private Slingshot slingshot;
 
     public Level() {
         birds = new ArrayList<>();
@@ -24,13 +25,13 @@ public abstract class Level {
         obstacles = new ArrayList<>();
         score = 0;
         currentBirdIndex = 0;
-
     }
 
     public void update() {
         for (Bird bird : birds) {
             bird.update(groundLevel);
         }
+
     }
 
 
@@ -45,15 +46,18 @@ public abstract class Level {
     }
 
     public boolean checkLoseCondition() {
-        return currentBirdIndex > birds.size() - 1 && !checkWinCondition();
+        return currentBirdIndex >= birds.size() && !checkWinCondition();
     }
 
     public Bird nextBird() {
-        if (currentBirdIndex < birds.size() - 1) {
-
+        if (currentBirdIndex < birds.size()) {
             return birds.get(currentBirdIndex++);
         }
         return null;
+    }
+
+    public void addBirds(List<Bird> newBirds) {
+        birds.addAll(newBirds);
     }
 
     public void addScore(int points) {
@@ -64,7 +68,7 @@ public abstract class Level {
         return score;
     }
 
-    public double  getGroundLevel() {
+    public double getGroundLevel() {
         return groundLevel;
     }
 
@@ -88,12 +92,18 @@ public abstract class Level {
         return obstacles;
     }
 
+    public void setSlingshot(Slingshot slingshot) {
+         this.slingshot =  slingshot;
+    }
+
     public abstract void initLevel();
 
     public void drawObject(GraphicsContext g) {
         for (Bird bird : birds) {
             bird.draw(g);
         }
+
+        slingshot.draw(g);
 
     }
 }
