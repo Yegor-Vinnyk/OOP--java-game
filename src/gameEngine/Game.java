@@ -11,20 +11,18 @@ import javafx.scene.layout.Pane;
 import gameInterface.GameScreen;
 import gameInterface.MenuScreen;
 import gameInterface.LevelScreen;
-import levels.Level1;
 import levels.Level;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import levels.Level1;
 import objects.Bird;
 import gameEngine.InputHandler;
 import gameEngine.PhysicsEngine;
 import objects.Slingshot;
-import objects.Blue;
-
-import java.lang.reflect.InvocationTargetException;
 
 
-public class Game extends Application /*implements Runnable*/ {
+
+public class Game extends Application  {
 
     private Level currentLevel;
     private GraphicsContext gc;
@@ -32,8 +30,6 @@ public class Game extends Application /*implements Runnable*/ {
     private Bird currentBird;
     private PhysicsEngine physicsEngine;
     private InputHandler inputHandler;
-    /*private boolean isRunning;*/
-
     private Slingshot slingshot;
     private StackPane root;
     private Pane currentScreen;
@@ -121,8 +117,8 @@ public class Game extends Application /*implements Runnable*/ {
 
     }
 
-    public void setLevel(Level level) {
-        this.currentLevel = level;
+    public void setLevel1() {
+        this.currentLevel = new Level1(3, 1, 5);
         currentLevel.setSlingshot(slingshot);
         currentLevel.initLevel();
         currentBird = currentLevel.nextBird();
@@ -141,6 +137,7 @@ public class Game extends Application /*implements Runnable*/ {
     }
 
     public void exitLevel() {
+       /* currentLevel.resetLevel();*/
         currentLevel = null;
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         selectLevelScreen();
@@ -148,7 +145,7 @@ public class Game extends Application /*implements Runnable*/ {
 
     public void update() {
         currentLevel.update(physicsEngine);
-        
+
         if (currentBird != null) {
             if (currentBird.getIsLaunched()) {
                  // Check if the bird has effectively stopped moving

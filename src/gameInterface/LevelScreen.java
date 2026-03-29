@@ -60,7 +60,7 @@ public class LevelScreen extends Pane {
 
 
         level1Button.setOnMouseClicked(e -> {
-            game.setLevel(new Level1(3, 2, 5));
+            game.setLevel1();
 
         });
 

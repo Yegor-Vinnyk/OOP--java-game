@@ -1,4 +1,5 @@
 package levels;
+
 import levels.Level;
 import objects.Blue;
 import objects.Obstacle;
@@ -24,12 +25,12 @@ public class Level1 extends Level {
         }
 
         for (int i = 0; i < numberOfPigs; i++) {
-            getPigs().add(new Pig((1200 + i * 30), 840, 80, 80, 3));
+            getPigs().add(new Pig((700), (840 - 90 * 5), 80, 80, 3));
 
         }
 
         for (int i = 0; i < numberOfObstacles; i++) {
-            getObstacles().add(new Obstacle((700 + i * 30), 840, 10, 90, "Glass", 1.5));
+            getObstacles().add(new Obstacle((700), (840 - 90 * i), 10, 90, "Glass", 1.5));
 
         }
     }
