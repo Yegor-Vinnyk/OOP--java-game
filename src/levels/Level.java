@@ -19,6 +19,7 @@ public abstract class Level {
     private int currentBirdIndex;
     private double groundLevel = 940;
     private Slingshot slingshot;
+    private List<Bird> newBirds = new ArrayList<>();
 
 
     public Level() {
@@ -30,14 +31,15 @@ public abstract class Level {
     }
 
     public void update(PhysicsEngine physicsEngine) {
-        List<Bird> newBirds = new ArrayList<>();
+
 
         for (Bird bird : birds) {
             physicsEngine.update(bird, this);
-
-            newBirds.addAll(bird.getSpawnedBirds());
         }
+
         birds.addAll(newBirds);
+        newBirds.clear();
+
 
         pigs.removeIf(pig -> pig.isDead());
         obstacles.removeIf(obstacle -> obstacle.isDead());
@@ -99,6 +101,10 @@ public abstract class Level {
 
     public void setSlingshot(Slingshot slingshot) {
          this.slingshot =  slingshot;
+    }
+
+    public void addBird(Bird bird) {
+        newBirds.add(bird);
     }
 
     public abstract void initLevel();

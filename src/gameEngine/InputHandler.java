@@ -12,6 +12,7 @@ public class InputHandler {
         canvas.setOnMousePressed(this::mousePressed);
         canvas.setOnMouseDragged(this::mouseDragged);
         canvas.setOnMouseReleased(this::mouseReleased);
+        /*canvas.setOnMousePressed(this::mouseClicked);*/
     }
 
     private void mousePressed(MouseEvent e) {
@@ -25,7 +26,7 @@ public class InputHandler {
     }
 
     private void mouseClicked(MouseEvent e) {
-        game.onMouseClicked(e.getX(), e.getY());
+        game.onAbilityClick(e.getX(), e.getY());
     }
 
 

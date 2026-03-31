@@ -4,6 +4,7 @@ import levels.Level;
 import objects.Blue;
 import objects.Obstacle;
 import objects.Pig;
+import abilityStrategy.SplitStrategy;
 
 
 public class Level1 extends Level {
@@ -21,7 +22,7 @@ public class Level1 extends Level {
     @Override
     public void initLevel() {
         for (int i = 0; i < numberOfBirds; i++) {
-            getBirds().add(new Blue((370 - i * 50), 880, 60.0, 60.0, 1));
+            getBirds().add(new Blue((370 - i * 50), 880, 60.0, 60.0, 1, new SplitStrategy(), this));
         }
 
         for (int i = 0; i < numberOfPigs; i++) {

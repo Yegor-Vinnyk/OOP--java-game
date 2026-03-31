@@ -3,21 +3,27 @@ package objects;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import objects.GameObject;
+import levels.Level;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+import abilityStrategy.AbilityStrategy;
+
 public abstract class Bird extends GameObject {
 
+    private Level currentLevel;
+    private AbilityStrategy strategy;
     private double velocityX = 0;
     private double velocityY = 0;
     private boolean isLaunched = false;
     protected boolean abilityUsed = false;
-    protected List<Bird> spawnedBirds = new ArrayList<>();
 
-    public Bird(double x, double y, double width, double height, double mass) {
+    public Bird(double x, double y, double width, double height, double mass, AbilityStrategy strategy, Level level) {
         super(x, y, width, height, mass);
-
+        this.strategy = strategy;
+        this.currentLevel = level;
     }
 
 
@@ -51,15 +57,17 @@ public abstract class Bird extends GameObject {
     }
 
     public void setAbilityUse() {
-         this.abilityUsed = true;
+        this.abilityUsed = true;
     }
 
-    public abstract void useAbility();
-
-    public List<Bird> getSpawnedBirds() {
-        List<Bird> spawned = new ArrayList<>(spawnedBirds);
-        spawnedBirds.clear(); // Clear so we don't add them multiple times
-        return spawned;
+    public Level getCurrentLevel() {
+        return this.currentLevel;
     }
+
+    public void useAbility() {
+        this.abilityUsed = true;
+        strategy.useAbility(this);
+    }
+
 
 }

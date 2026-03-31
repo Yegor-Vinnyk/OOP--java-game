@@ -137,7 +137,7 @@ public class Game extends Application  {
     }
 
     public void exitLevel() {
-       /* currentLevel.resetLevel();*/
+        currentLevel.resetLevel();
         currentLevel = null;
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         selectLevelScreen();
@@ -171,8 +171,8 @@ public class Game extends Application  {
         slingshot.onMouseReleased();
     }
 
-    public void onMouseClicked(double x, double y) {
-        if(currentBird != null && currentBird.getIsLaunched()){
+    public void onAbilityClick(double x, double y) {
+        if(!currentBird.getAbilityUse() && currentBird.getIsLaunched()) {
             currentBird.useAbility();
         }
     }
